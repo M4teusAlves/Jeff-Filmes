@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -29,21 +30,25 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import br.com.am.jeff_filmes.Screen
+import br.com.am.jeff_filmes.model.Banco
+import br.com.am.jeff_filmes.model.DAOFilme
+import br.com.am.jeff_filmes.model.Filme
 import br.com.am.jeff_filmes.model.Transition
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InsertScreen(
     navController: NavController,
-    banco:Banco_imoveis
+    banco: Banco
 ){
     var titulo by remember{ mutableStateOf("") }
 
     var text by remember{ mutableStateOf("") }
 
+    val daoFilme = DAOFilme(banco)
 
-
-
+    var aviso by remember{ mutableStateOf("") }
 
     var tamanho by remember { mutableStateOf(0) }
 
@@ -60,13 +65,13 @@ fun InsertScreen(
 
         ){
             Row (modifier = Modifier
-                .background(Color(97, 47, 116), RectangleShape)
+                .background(Color(0, 0, 132), RectangleShape)
                 .fillMaxWidth()
                 .height(50.dp)
                 .padding(10.dp),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically){
-                Text(text = "Jeff-imóveis", color = Color.White)
+                Text(text = "Jeff-Filmes", color = Color.White)
             }
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -80,41 +85,28 @@ fun InsertScreen(
 
 
                 TextField(
-                    value = endereco,
-                    onValueChange = {endereco = it},
-                    placeholder = { Text(text = "Endereço")}
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                TextField(
                     value = titulo,
                     onValueChange = {titulo = it},
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    placeholder = { Text(text = "Titulo")}
+                    placeholder = { Text(text = "Título")}
                 )
                 Spacer(modifier = Modifier.height(20.dp))
-
                 TextField(
                     value = text,
                     onValueChange = {text = it},
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    placeholder = { Text(text = "Valor de Aluguel")}
+                    placeholder = { Text(text = "Valor")}
                 )
+
                 Spacer(modifier = Modifier.height(30.dp))
                 Button(onClick = {
 
-                    if(!matricula.equals("") && !endereco.equals("") && !text.equals("") && Transition.inquilino != null && Transition.proprietario != null){
-                        if(daoImovel.inserirImovel(Imovel(matricula, endereco, text.toDouble(), Transition.proprietario!!, Transition.inquilino!!))){
-                            daoProprietario.inserirProprietario(Transition.proprietario!!)
-                            daoInquilino.inserirInquilino(Transition.inquilino!!)
-                            Transition.inquilino = null
-                            Transition.proprietario = null
-                            Transition.tipo=""
+                    if(!titulo.equals("") && !text.equals("")){
+                        if(daoFilme.inserirFilme(Filme(0, titulo, text.toFloat()))){
+                            Transition.filme = null
                             Transition.contexto=""
                             navController.navigate(Screen.Home.route)
                         }
 
-                        aviso = "Matrícula já utilizado!!!"
-                        tamanho = 10
                     }else{
                         tamanho = 10
                         aviso = "Preencha todos os campos!!!"
@@ -140,3 +132,4 @@ fun InsertScreen(
 
 
 }
+

@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -59,13 +60,13 @@ fun HomeScreen(
 
         ){
             Row (modifier = Modifier
-                .background(Color(97, 47, 116), RectangleShape)
+                .background(Color(0, 0, 132), RectangleShape)
                 .fillMaxWidth()
                 .height(50.dp)
                 .padding(10.dp),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically){
-                Text(text = "Jeff-imóveis", color = Color.White)
+                Text(text = "Jeff-Filmes", color = Color.White)
             }
             Column(modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
@@ -87,8 +88,8 @@ fun HomeScreen(
 //
                 }
                 Row (){
-                    Botao(texto = "   Criar\nLocação", paint = Icons.Filled.Home, nav = navController, route = Screen.Insert.route, "Cadastrar")
-                    Botao(texto = "  Minhas\nLocações", paint = Icons.Filled.List, nav = navController, route = Screen.List.route, "Cadastrar")
+                    Botao(texto = "Cadastrar\n   Filme", paint = Icons.Filled.PlayArrow, nav = navController, route = Screen.Insert.route, "Cadastrar")
+                    Botao(texto = " Listar\nFilmes", paint = Icons.Filled.List, nav = navController, route = Screen.List.route, "Cadastrar")
 
                 }
 

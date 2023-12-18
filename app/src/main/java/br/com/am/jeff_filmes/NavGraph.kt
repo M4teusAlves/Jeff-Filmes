@@ -5,6 +5,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import br.com.am.jeff_filmes.model.Banco
+import br.com.am.jeff_filmes.screens.HomeScreen
+import br.com.am.jeff_filmes.screens.InsertScreen
+import br.com.am.jeff_filmes.screens.ListScreen
+import br.com.am.jeff_filmes.screens.UpdateScreen
 
 @Composable
 fun SetupNavGraph(

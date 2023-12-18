@@ -2,6 +2,10 @@ package br.com.am.jeff_filmes.model
 
 import android.content.ContentValues
 import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 class DAOFilme(banco: Banco){
 
@@ -9,7 +13,7 @@ class DAOFilme(banco: Banco){
     init {
         this.banco = banco
     }
-    fun inserirFilme(filme : Filme){
+    fun inserirFilme(filme : Filme): Boolean {
         val db_insercao = this.banco.writableDatabase
         var valores = ContentValues().apply{
             put("titulo", filme.titulo)
@@ -17,7 +21,14 @@ class DAOFilme(banco: Banco){
         }
         val confirmaInsercao = db_insercao?.insert("Filme",  null, valores)
         Log.i("Teste","Inserção: "+confirmaInsercao)
+        if(confirmaInsercao != null){
+            if(confirmaInsercao.toInt() == -1){
+                return false
+            }
+        }
+        return true
     }
+
 
     fun mostrarFilmes(): List<Filme>{
         val listaFilmes = ArrayList<Filme>()
